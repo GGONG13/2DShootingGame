@@ -9,7 +9,7 @@ using UnityEngine.VFX;
 using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
-public enum EnemyType // �� Ÿ�� ������
+public enum EnemyType //    Ÿ         
 {
     Basic,
     Target,
@@ -21,14 +21,14 @@ public class Enemy : MonoBehaviour
 {
 
 
-    // ��ǥ :
-    // EnemyType.Basic Ÿ�� - �Ʒ��� �̵�
-    // EnemyType.Target Ÿ�� - ó�� �¾���� �÷��̾ �ִ� �������� �̵�
-    // �Ӽ�
-    // - EnemyType Ÿ��
-    // ���� ���� :
-    // 1. ������ �� ������ ���Ѵ� (�÷��̾ �ִ� ����)
-    // 2. ������ ���� �̵� ��Ų��
+    //   ǥ :
+    // EnemyType.Basic Ÿ   -  Ʒ     ̵ 
+    // EnemyType.Target Ÿ   - ó    ¾      ÷  ̾  ִ            ̵ 
+    //  Ӽ 
+    // - EnemyType Ÿ  
+    //           :
+    // 1.                     Ѵ  ( ÷  ̾  ִ      )
+    // 2.              ̵    Ų  
     public EnemyType Etype;
 
     private Vector2 _dir;
@@ -49,8 +49,8 @@ public class Enemy : MonoBehaviour
     public int health = 4;
     private void Start()
     {
-        // ĳ�� : ���� ���� �����͸� �� ����� ��ҿ� �����صΰ� �ʿ��� �� ������ ���� ��
-        // ������ �� �÷��̾ ã�Ƽ� ����صд�.
+        // ĳ   :                ͸             ҿ       صΰ   ʿ                     
+        //            ÷  ̾ ã Ƽ      صд .
         _target = GameObject.Find("Player");
 
         MyAnimator = GetComponent<Animator>();
@@ -59,14 +59,14 @@ public class Enemy : MonoBehaviour
         {
             // GetComponent<Player>();
 
-            // 1. ������ �� ������ ���Ѵ� (�÷��̾ �ִ� ����)
+            // 1.                     Ѵ  ( ÷  ̾  ִ      )
 
-            // 1-1. �÷��̾ ã�´�
-            // GameObject target = GameObject.Find("Player"); // �̸����� ���ϴ� ���
-                                                           // GameObject.FindGameObjectsWithTag("Player"); �±׷� ���ϴ� ���
-            // 2. ������ ���� �̵� ��Ų�� (target - me)
+            // 1-1.  ÷  ̾ ã ´ 
+            // GameObject target = GameObject.Find("Player"); //  ̸         ϴ     
+                                                           // GameObject.FindGameObjectsWithTag("Player");  ±׷     ϴ     
+            // 2.              ̵    Ų   (target - me)
             _dir = _target.transform.position - this.transform.position;
-            _dir.Normalize(); // ������ ũ�⸦ 1�� �����.
+            _dir.Normalize(); //        ũ ⸦ 1        .
 
             // 1. 각도를 구한다.
             // tan@ = y/x   -> @ = y/x*atan
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         {
            // GameObject follow = GameObject.Find("Player");
             _dir = _target.transform.position - this.transform.position;
-            _dir.Normalize(); // ������ ũ�⸦ 1�� �����.
+            _dir.Normalize(); //        ũ ⸦ 1        .
             float radian = Mathf.Atan2 (_dir.y, _dir.x);
             float degree = radian * Mathf.Rad2Deg;
 
@@ -103,21 +103,21 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // ��ǥ : ���� �Ʒ��� �̵� ��Ű�� �ʹ�.
-        // �Ӽ� :
-        // - �ӷ�
-        // ���� ����
-        // 1. ���� ���ϱ�
+        //   ǥ :       Ʒ     ̵    Ű    ʹ .
+        //  Ӽ  :
+        // -  ӷ 
+        //          
+        // 1.         ϱ 
         // Vector2 moveDir = Vector2.down;
-        // ����� Ǯ�� : Vector2 dir = new Vector2(0, -1)
-        // 2. �̵� ��Ų��
+        //       Ǯ   : Vector2 dir = new Vector2(0, -1)
+        // 2.  ̵    Ų  
         transform.position += (Vector3)(_dir * Speed) * Time.deltaTime;
 
         if (Etype == EnemyType.Follow)
         {
            // GameObject follow = GameObject.Find("Player");
             _dir = _target.transform.position - this.transform.position;
-            _dir.Normalize(); // ������ ũ�⸦ 1�� �����.
+            _dir.Normalize(); //        ũ ⸦ 1        .
             float radian = Mathf.Atan2(_dir.y, _dir.x);
             float degree = radian * Mathf.Rad2Deg;
 
@@ -126,22 +126,22 @@ public class Enemy : MonoBehaviour
 
     }
 
-    // ��ǥ : �浹�ϸ� ���� �÷��̾ �����ϰ� �ʹ�.
-    // ���� ���� :
-    // 1. ���࿡ �浹�� �Ͼ��
-    // 2. ���� �÷��̾ �����Ѵ�.
+    //   ǥ :  浹 ϸ        ÷  ̾      ϰ   ʹ .
+    //           :
+    // 1.    ࿡  浹    Ͼ  
+    // 2.       ÷  ̾      Ѵ .
 
-    // �浹�� �Ͼ�� ȣ��Ǵ� �̺�Ʈ �Լ�
+    //  浹    Ͼ   ȣ  Ǵ   ̺ Ʈ  Լ 
     private void OnCollisionEnter2D(Collision2D collision) 
     {
 
         if (collision.collider.tag == "Player")
         {
-            // �÷��̾� ��ũ��Ʈ�� �����´�
+            //  ÷  ̾    ũ  Ʈ        ´ 
 
             Player player = collision.collider.GetComponent<Player>();
             Die();
-            // �÷��̾� ü���� -= 1
+            //  ÷  ̾  ü     -= 1
             player.Health -= 1;
             Debug.Log($"플레이어 체력 : {player.Health}");
      
@@ -153,7 +153,7 @@ public class Enemy : MonoBehaviour
             PlayerMove playerMove = collision.collider.GetComponent<PlayerMove>();
             playerMove.Speed--;
             Debug.Log($"플레이어 스피드 : {playerMove.Speed}");
-            // �÷��̾� ü���� ���ٸ�..
+            //  ÷  ̾  ü        ٸ ..
             if (player.Health <= 0)
             {
                 Destroy(collision.collider.gameObject);
@@ -218,20 +218,20 @@ public class Enemy : MonoBehaviour
         }
         **/
 
-        // 2. �浹�� �ʿ� ���� �����Ѵ�
-        // ���װ� (��)
+        // 2.  浹    ʿ            Ѵ 
+        //    װ  (  )
         //  Destroy(collision.collider.gameObject);
-        // ������ (�� �ڽ�)
+        //        (    ڽ )
         // Destroy(this.gameObject);
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        // �浹 ���� �� �Ź�
+        //  浹          Ź 
         Debug.Log("Stay");
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // �浹�� ������ ��
+        //  浹            
         Debug.Log("Exit");
     }
     // 1. 만약에 적을 잡으면?

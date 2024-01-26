@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletType  // ÃÑ¾Ë Å¸ÀÔ¿¡ ´ëÇÑ ¿­°ÅÇü (»ó¼ö¸¦ ±â¾ïÇÏ±â ÁÁ°Ô ±×·ìÈ­ÇÏ´Â °Í)
+public enum BulletType  // ì´ì•Œ íƒ€ì…ì— ëŒ€í•œ ì—´ê±°í˜• (ìƒìˆ˜ë¥¼ ê¸°ì–µí•˜ê¸° ì¢‹ê²Œ ê·¸ë£¹í™”í•˜ëŠ” ê²ƒ)
 {
     Main = 0,
     Sub = 1,
@@ -14,15 +14,15 @@ public enum BulletType  // ÃÑ¾Ë Å¸ÀÔ¿¡ ´ëÇÑ ¿­°ÅÇü (»ó¼ö¸¦ ±â¾ïÇÏ±â ÁÁ°Ô ±×·ìÈ­Ç
 public class Bullet : MonoBehaviour
 {
 
-    // public int BulletType = 0; // 0ÀÌ¸é ÁÖÃÑ¾Ë, 1ÀÌ¸é º¸Á¶ÃÑ¾Ë, 2¸é ÆêÀÌ ½î´Â ÃÑ¾Ë
+    // public int BulletType = 0; // 0ì´ë©´ ì£¼ì´ì•Œ, 1ì´ë©´ ë³´ì¡°ì´ì•Œ, 2ë©´ í«ì´ ì˜ëŠ” ì´ì•Œ
     public BulletType BType = BulletType.Main;
 
-    // ¸ñÇ¥ : ÃÑ¾ËÀÌ À§·Î °è¼Ó ÀÌµ¿ÇÏ°í ½Í´Ù.
-    // ¼Ó¼º : 
-    // - ¼Ó·Â (ÀÌµ¿¼Óµµ)
-    // ±¸Çö ¼ø¼­
-    // 1. ÀÌµ¿ÇÒ ¹æÇâÀ» ±¸ÇÑ´Ù.
-    // 2. ÀÌµ¿ÇÑ´Ù.
+    // ëª©í‘œ : ì´ì•Œì´ ìœ„ë¡œ ê³„ì† ì´ë™í•˜ê³  ì‹¶ë‹¤.
+    // ì†ì„± : 
+    // - ì†ë ¥ (ì´ë™ì†ë„)
+    // êµ¬í˜„ ìˆœì„œ
+    // 1. ì´ë™í•  ë°©í–¥ì„ êµ¬í•œë‹¤.
+    // 2. ì´ë™í•œë‹¤.
 
     public float Speed = 1.0f;
 
@@ -32,21 +32,21 @@ public class Bullet : MonoBehaviour
     void Update()
     {
 
-        // 1. ÀÌµ¿ÇÒ ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // 1. ì´ë™í•  ë°©í–¥ì„ êµ¬í•œë‹¤.
         Vector2 moveDirection = Vector2.up;
-        // 2. ÀÌµ¿ÇÑ´Ù.
+        // 2. ì´ë™í•œë‹¤.
         // transform.Translate(moveDirection * Speed * Time.deltaTime);
-        // »õ·Î¿î À§Ä¡ = ÇöÀç À§Ä¡ * ¼Óµµ * ½Ã°£
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ = í˜„ì¬ ìœ„ì¹˜ * ì†ë„ * ì‹œê°„
         transform.position += (Vector3)(moveDirection * Speed) * Time.deltaTime;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ãæµ¹À» ½ÃÀÛÇßÀ» ¶§
+        // ì¶©ëŒì„ ì‹œì‘í–ˆì„ ë•Œ
         Debug.Log("Enter");
-        // 2. Àû°ú ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù
-        // ³ÊÁ×°í (Àû)
+        // 2. ì ê³¼ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤
+        // ë„ˆì£½ê³  (ì )
         // Destroy(collision.collider.gameObject);
-        // ³ªÁ×ÀÚ (³ª ÀÚ½Å)
+        // ë‚˜ì£½ì (ë‚˜ ìì‹ )
         Destroy(this.gameObject);
     }
 

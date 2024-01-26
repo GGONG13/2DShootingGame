@@ -17,9 +17,9 @@ public class Coin : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ãæµ¹À» ½ÃÀÛÇßÀ» ¶§
+        // ì¶©ëŒì„ ì‹œì‘í–ˆì„ ë•Œ
         Debug.Log("Enter");
-        // ³ªÁ×ÀÚ (³ª ÀÚ½Å)
+        // ë‚˜ì£½ì (ë‚˜ ìì‹ )
         Destroy(this.gameObject);
     }
 

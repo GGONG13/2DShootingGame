@@ -7,12 +7,12 @@ using UnityEngine;
 public class EnemySpanwer : MonoBehaviour
 {
 
-    // ¿ªÇÒ : ÀÏÁ¤½Ã°£¸¶´Ù ÀûÀ» ÇÁ¸®ÆéÀ¸·ÎºÎÅÍ »ı¼ºÇØ¼­ ³» À§Ä¡¿¡ °®´Ù ³õ°í ½Í´Ù.
-    // ÇÊ¿ä ¼Ó¼º
-    // - Àû ÇÁ¸®Æé
-    // - ÀÏÁ¤ ½Ã°£
-    // - ÇöÀç ½Ã°£
-    // ±¸Çö ¼ø¼­ :
+    // ì—­í•  : ì¼ì •ì‹œê°„ë§ˆë‹¤ ì ì„ í”„ë¦¬í©ìœ¼ë¡œë¶€í„° ìƒì„±í•´ì„œ ë‚´ ìœ„ì¹˜ì— ê°–ë‹¤ ë†“ê³  ì‹¶ë‹¤.
+    // í•„ìš” ì†ì„±
+    // - ì  í”„ë¦¬í©
+    // - ì¼ì • ì‹œê°„
+    // - í˜„ì¬ ì‹œê°„
+    // êµ¬í˜„ ìˆœì„œ :
 
     public GameObject EnemyPrefab_basic;
     public GameObject EnemyPrefab_target;
@@ -25,30 +25,30 @@ public class EnemySpanwer : MonoBehaviour
 
 
     /**
-    [Header ("Å¸ÀÌ¸Ó")]
+    [Header ("íƒ€ì´ë¨¸")]
     public float Timer = 10f;
     public float coolTime = 0.6f;
 
-    [Header("Àû ÇÁ¸®ÆÕ")]
+    [Header("ì  í”„ë¦¬íŒ¹")]
     public GameObject EnemyPrefab;
 
-    [Header("Àû »ı¼º À§Ä¡")]
+    [Header("ì  ìƒì„± ìœ„ì¹˜")]
     public GameObject[] EnemyPosition;
 
-    [Header("Àû °ø°İ ¸ğµå")]
+    [Header("ì  ê³µê²© ëª¨ë“œ")]
     public bool AutoMode = true;
     **/
 
-    // ¸ñÇ¥ : Àû »ı¼º ½Ã°£À» ·£´ıÇÏ°Ô ÇÏ°í ½Í´Ù.
-    // ÇÊ¿ä ¼Ó¼º :
-    // - ÃÖ¼Ò ½Ã°£
-    // - ÃÖ´ë ½Ã°£
+    // ëª©í‘œ : ì  ìƒì„± ì‹œê°„ì„ ëœë¤í•˜ê²Œ í•˜ê³  ì‹¶ë‹¤.
+    // í•„ìš” ì†ì„± :
+    // - ìµœì†Œ ì‹œê°„
+    // - ìµœëŒ€ ì‹œê°„
     public float MinTime = 0.1f;
     public float MaxTime = 10.0f;
 
     private void Start()
     {
-        // ½ÃÀÛÇÒ ¶§ Àû »ı¼º ½Ã°£À» ·£´ıÇÏ°Ô ¼³Á¤ÇÑ´Ù
+        // ì‹œì‘í•  ë•Œ ì  ìƒì„± ì‹œê°„ì„ ëœë¤í•˜ê²Œ ì„¤ì •í•œë‹¤
         SetRendomTime();
     }
 
@@ -59,20 +59,20 @@ public class EnemySpanwer : MonoBehaviour
 
     void Update()
     {
-        // 1. ½Ã°£ÀÌ Èå¸£´Ù°¡ 
+        // 1. ì‹œê°„ì´ íë¥´ë‹¤ê°€ 
         CurrentTimer += Time.deltaTime;
 
 
 
-        // 2. ¸¸¾à¿¡ ½Ã°£ÀÌ ÀÏÁ¤½Ã°£ÀÌ µÇ¸é
+        // 2. ë§Œì•½ì— ì‹œê°„ì´ ì¼ì •ì‹œê°„ì´ ë˜ë©´
         if (CurrentTimer >= SpawnTime)
         {
-            // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+            // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
             CurrentTimer = 0f;
 
             SetRendomTime();
 
-            // 30% È®·ü·Î TargetÇü, ³ª¸ÓÁö È®·ü BasicÇü Àû »ı¼ºÇÏ°Ô ÇÏ±â
+            // 30% í™•ë¥ ë¡œ Targetí˜•, ë‚˜ë¨¸ì§€ í™•ë¥  Basicí˜• ì  ìƒì„±í•˜ê²Œ í•˜ê¸°
             GameObject enemy = null;
             int randomNumber = Random.Range(0, 10);
 
@@ -100,7 +100,7 @@ public class EnemySpanwer : MonoBehaviour
         {
             Timer = coolTime;
          //   AutoMode = true;
-         //   Debug.Log("Àû °ø°İ ¸ğµå");
+         //   Debug.Log("ì  ê³µê²© ëª¨ë“œ");
 
             for (int i = 0; i < EnemyPosition.Length; i++)
             {
@@ -122,7 +122,7 @@ public class EnemySpanwer : MonoBehaviour
         else if (Time.deltaTime > 0f) 
         {
             AutoMode = true;
-            Debug.Log("Àû ´ë±â ¸ğµå");
+            Debug.Log("ì  ëŒ€ê¸° ëª¨ë“œ");
         }
         **/
 

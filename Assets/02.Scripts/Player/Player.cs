@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         /**
-       // GetComponent<ÄÄÆ÷³ÍÆ® Å¸ÀÔ>(); -> °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿À´Â ¸Ş¼­µå
+       // GetComponent<ì»´í¬ë„ŒíŠ¸ íƒ€ì…>(); -> ê²Œì„ ì˜¤ë¸Œì íŠ¸ì˜ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
        SpriteRenderer sr = GetComponent<SpriteRenderer>();
        sr.color = Color.white;
 
