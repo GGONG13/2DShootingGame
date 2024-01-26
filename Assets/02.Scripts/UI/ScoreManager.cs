@@ -4,34 +4,34 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-// ¿ªÇÒ : Á¡¼ö¸¦ °ü¸®ÇÏ´Â Á¡¼ö °ü¸®ÀÚ
+// ì—­í•  : ì ìˆ˜ë¥¼ ê´€ë¦¬í•˜ëŠ” ì ìˆ˜ ê´€ë¦¬ì
 public class ScoreManager : MonoBehaviour
 {
-   // ¸ñÇ¥ : ÀûÀ» ÀâÀ»¶§¸¶´Ù Á¡¼ö¸¦ ¿Ã¸®°í, ÇöÀç Á¡¼ö¸¦ UI¿¡ Ç¥½ÃÇÏ°í ½Í´Ù.
-   // ÇÊ¿ä ¼Ó¼º
-   // - ÇöÀç Á¡¼ö¸¦ Ç¥½ÃÇÒ UI
+   // ëª©í‘œ : ì ì„ ì¡ì„ë•Œë§ˆë‹¤ ì ìˆ˜ë¥¼ ì˜¬ë¦¬ê³ , í˜„ì¬ ì ìˆ˜ë¥¼ UIì— í‘œì‹œí•˜ê³  ì‹¶ë‹¤.
+   // í•„ìš” ì†ì„±
+   // - í˜„ì¬ ì ìˆ˜ë¥¼ í‘œì‹œí•  UI
     public Text scoreTextUI;
-   // - ÇöÀç Á¡¼ö¸¦ ±â¾ïÇÒ º¯¼ö
+   // - í˜„ì¬ ì ìˆ˜ë¥¼ ê¸°ì–µí•  ë³€ìˆ˜
     public int scoreCount = 0;
 
-    // ÃÖ°í Á¡¼ö °ü·Ã ¼Ó¼º
+    // ìµœê³  ì ìˆ˜ ê´€ë ¨ ì†ì„±
     public Text BestScoreTextUI;
     public int BestScoreCount = 0;
 
-    // Çï½º, ½ºÇÇµå °ü·Ã ¼Ó¼º
+    // í—¬ìŠ¤, ìŠ¤í”¼ë“œ ê´€ë ¨ ì†ì„±
     public Text HealthTextUI;
     public Text SpeedTextUI;
 
-    // ¸ñÇ¥ : °ÔÀÓÀ» ½ÃÀÛ ÇÒ ¶§ ÃÖ°í Á¡¼ö¸¦ ºÒ·¯¿À°í, UI¿¡ Ç¥½ÃÇÏ°í ½Í´Ù.
-    // ±¸Çö ¼ø¼­:
-    // 1. °ÔÀÓÀ» ½ÃÀÛÇÒ ¶§
+    // ëª©í‘œ : ê²Œì„ì„ ì‹œì‘ í•  ë•Œ ìµœê³  ì ìˆ˜ë¥¼ ë¶ˆëŸ¬ì˜¤ê³ , UIì— í‘œì‹œí•˜ê³  ì‹¶ë‹¤.
+    // êµ¬í˜„ ìˆœì„œ:
+    // 1. ê²Œì„ì„ ì‹œì‘í•  ë•Œ
     private void Start()
     {
-        // 2. ÃÖ°í Á¡¼ö¸¦ ºÒ·¯¿Â´Ù.
+        // 2. ìµœê³  ì ìˆ˜ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 
         BestScoreCount = PlayerPrefs.GetInt("BestScore", 0);
 
-        // 3. UI¿¡ Ç¥½ÃÇÑ´Ù.
+        // 3. UIì— í‘œì‹œí•œë‹¤.
         BestScoreTextUI.text = $"Best Score : {BestScoreCount}";
     }
 
