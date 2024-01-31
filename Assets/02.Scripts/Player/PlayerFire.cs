@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
+
 
 public class PlayerFire : MonoBehaviour
 {
@@ -43,8 +43,38 @@ public class PlayerFire : MonoBehaviour
     [Header("필살기")]
     public GameObject Boom;
 
+    public List<GameObject> Bullets = null;
+    public List<GameObject> SubBullets = null;
+   
+
+    private void Awake()
+    {
+        Bullets = new List<GameObject>(20);
+
+        for (int i = 0; i < Bullets.Count; i++)
+        {
+            GameObject bullet = Instantiate(BulletPrefab);  // 예시: 프리팹을 이용한 Bullet 생성
+            bullet.gameObject.SetActive(false);  // 처음에는 모든 총알을 비활성화 상태로 두기
+            Bullets.Add(bullet);
+        }
+
+
+    }
+
     private void Start()
     {
+        // 전처리 단계 : 코드가 컴파일(해석) 되기 전에 미리 처리되는 단계 
+        // 전처리문 코드를 이용해서 미리 처리 되는 코드를 작성할 수 있다.
+        // C#의 모든 전처리 코드는 '#'으로 시작한다. (#if, #elif, #endif)
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        GameObject.Find("Joystick canvas XYBZ").SetActive(false); // 만약 빌드시 에디터거나 유니티면 조이스틱 꺼버리겠다
+#endif
+
+#if UNITY_ANDROID
+        Debug.Log("안드로이드 입니다.");
+#endif
+
         Timer = 0f;
         AutoMode = false;
     }
@@ -54,14 +84,14 @@ public class PlayerFire : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Debug.Log("자동 공격 모드");
-            AutoMode = true;
+
+            AutoFire();
+
         }
 
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Debug.Log("수동 공격 모드");
-            AutoMode = false;
+            StopFire();
         }
 
         // 타이머 계산
@@ -69,11 +99,10 @@ public class PlayerFire : MonoBehaviour
 
         // 1. 타이머가 0보다 작은 상태에서 발사 버튼을 누르면
         bool ready = AutoMode || Input.GetKeyDown(KeyCode.Space);
-        if (Timer <= 0 && ready)
+        if (ready)
         {
             FireSource.Play();
-            // 타이머 초기화
-            Timer = coolTime;
+
 
             // 2. 프리팹으로부터 총알을 동적으로 만들고,
             // GameObject bulletA = Instantiate(BulletPrefab); // 인스턴트화 하는 함수, GameObject는 생략이 가능.
@@ -86,6 +115,47 @@ public class PlayerFire : MonoBehaviour
             //  nextTime = Time.time + coolTime;
 
             // 목표 : 총구 개수 만큼 총알을 만들고, 만든 총알의 위치를 각 총구의 위치로 바꾼다.
+            Fire();
+        }
+
+        CurrentTimer += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Bomb();
+        }
+
+        /**
+        Vector2 BulletPositionA;
+        Vector2 BulletPositionB;
+
+        Vector2 muzzlePosition = Muzzles.transform.position;
+        Vector2 bulletOffSet = new Vector2 (1,0);
+
+        BulletPositionA = muzzlePosition + bulletOffSet;
+        BulletPositionB = muzzlePosition - bulletOffSet;
+        **/
+    }
+
+    private void Bomb()
+    {
+
+        if (CurrentTimer >= BoomcoolTime)
+        {
+            Debug.Log("필살기 작동");
+            GameObject VFX = Instantiate(Boom);
+            VFX.transform.position = Vector3.zero;
+            CurrentTimer = 0;
+        }
+
+    }
+
+    private void Fire()
+    {
+        if (Timer <= 0)
+        {
+            // 타이머 초기화
+            Timer = coolTime;
             for (int i = 0; i < Muzzles.Length; i++)
             {
                 // 1. 총알을 만들고
@@ -100,34 +170,51 @@ public class PlayerFire : MonoBehaviour
                 Subbullets.transform.position = SubMuzzles[i].transform.position;
             }
         }
+    }
 
-        CurrentTimer += Time.deltaTime;
+    private void AutoFire()
+    {
+        Debug.Log("자동 공격 모드");
+        AutoMode = true;
+    }
 
-        if (CurrentTimer >= BoomcoolTime && Input.GetKeyDown(KeyCode.Alpha3))
+    private void StopFire()
+    {
+        Debug.Log("수동 공격 모드");
+        AutoMode = false;
+    }
+
+    private void ChangeAuto()
+    {
+        if (AutoMode)
         {
-            Debug.Log("필살기 작동");
-            GameObject VFX = Instantiate(Boom);
-            VFX.transform.position = Vector3.zero;
-            CurrentTimer = 0;
+            StopFire();
         }
-
-        /**
-        Vector2 BulletPositionA;
-        Vector2 BulletPositionB;
-
-        Vector2 muzzlePosition = Muzzles.transform.position;
-        Vector2 bulletOffSet = new Vector2 (1,0);
-
-        BulletPositionA = muzzlePosition + bulletOffSet;
-        BulletPositionB = muzzlePosition - bulletOffSet;
-        **/
-
-
-
+        else
+        {
+            AutoFire();
+        }
     }
 
-
+    // 총알 발사
+    public void OnClickXbutton()
+    {
+        Debug.Log("X버튼이 클릭되었습니다.");
+        Fire();
     }
+    // 자동 공격 on / off
+    public void OnClickYbutton() 
+    {
+        ChangeAuto();
+        Debug.Log("Y버튼이 클릭되었습니다.");
+    }
+    // 궁극기 사용
+    public void OnClickBbutton() 
+    {
+        Debug.Log("B버튼이 클릭되었습니다.");
+        Bomb();
+    }
+}
 
 
 

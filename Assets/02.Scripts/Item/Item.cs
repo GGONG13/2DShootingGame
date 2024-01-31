@@ -96,16 +96,16 @@ public class Item : MonoBehaviour
             if (MyType == MyType.healthUp) 
             {
                 Player player = otherCollider.gameObject.GetComponent<Player>();
-                player.Health++;
-                Debug.Log($"플레이어 체력 : {player.Health}");
+                player.AddHealth();
+                Debug.Log($"플레이어 체력 : {player.GetHealth()}");
 
             }
             else if (MyType == MyType.speedUp)
             {
                 // 타입이 1이면 플레이어의 스피드 올려주기
                 PlayerMove playerMove = otherCollider.gameObject.GetComponent<PlayerMove>();
-                playerMove.Speed++;
-                Debug.Log($"플레이어 스피드 : {playerMove.Speed}");
+                playerMove.AddSpeed(1);
+                Debug.Log($"플레이어 스피드 : {playerMove.GetSpeed()}");
 
             }
             Destroy(this.gameObject);

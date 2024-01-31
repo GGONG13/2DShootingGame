@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.VFX;
-using static UnityEngine.GraphicsBuffer;
-using Random = UnityEngine.Random;
 
 public enum EnemyType //    Ÿ         
 {
@@ -142,32 +134,14 @@ public class Enemy : MonoBehaviour
             Player player = collision.collider.GetComponent<Player>();
             Die();
             //  ÷  ̾  ü     -= 1
-            player.Health -= 1;
-            Debug.Log($"플레이어 체력 : {player.Health}");
+            player.MinHealth();
+            Debug.Log($"플레이어 체력 : {player.GetHealth()}");
      
-            GameObject UItext = GameObject.Find("ScoreManager");
-            ScoreManager UItexttext = UItext.GetComponent<ScoreManager>();
-            UItexttext.HealthTextUI.text = $"Health : {player.Health}";
-
-
             PlayerMove playerMove = collision.collider.GetComponent<PlayerMove>();
-            playerMove.Speed--;
-            Debug.Log($"플레이어 스피드 : {playerMove.Speed}");
+            playerMove.RemoveSpeed(1);
+            Debug.Log($"플레이어 스피드 : {player.GetHealth()}");
             //  ÷  ̾  ü        ٸ ..
-            if (player.Health <= 0)
-            {
-                Destroy(collision.collider.gameObject);
-                GameObject smGameObject = GameObject.Find("ScoreManager");
-                ScoreManager scoreManager = smGameObject.GetComponent<ScoreManager>();
-                if (scoreManager.BestScoreCount < scoreManager.scoreCount)
-                {
-                }
-                else if (scoreManager.BestScoreCount > scoreManager.scoreCount)
-                {
-                    scoreManager.BestScoreCount = scoreManager.scoreCount;
-                }
-                Debug.Log($"게임 종료");
-            }
+
         }
         else if (collision.collider.tag == "Bullet")
         {
@@ -250,7 +224,7 @@ public class Enemy : MonoBehaviour
             ScoreManager scoreManager = smGameObject.GetComponent<ScoreManager>();
              // 3. 컴포넌트의 Score 속성을 증가시킨다.
             int scoreCount = scoreManager.GetScoreCount();
-            scoreManager.SetScoreCount(scoreCount + 1);
+            scoreManager.AddScore();
             Debug.Log(scoreManager.GetScoreCount());
     }
 

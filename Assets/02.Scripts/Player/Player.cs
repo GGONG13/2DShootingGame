@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public int Health = 2;
+    public int _health = 2;
     public int hitcount = 0;
     public AudioSource PlayerAudioSource;
 
@@ -24,10 +25,42 @@ public class Player : MonoBehaviour
         Debug.Log(playerMove.Speed);
         playerMove.Speed = 4.5f;
         **/
+    }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
+
+    public void AddHealth()
+    {
+        SetHealth(_health + 1);
+    }
+
+    public void MinHealth()
+    {
+        SetHealth(_health - 1);
+
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log($"게임 종료");
+        }
+    }
+
+    public void SetHealth(int Health)
+    {
+        _health = Health;
+
+        if (Health < 0)
+        {
+            _health = 0;
+            return;
+        }
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
     {
             PlayerAudioSource.Play();
     }

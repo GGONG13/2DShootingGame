@@ -43,6 +43,11 @@ public class ScoreManager : MonoBehaviour
         return _scoreCount;
     }
 
+    public void AddScore()
+    {
+        SetScoreCount(_scoreCount + 1);
+    }
+
     public void SetScoreCount(int scorecount)
     {
         // 유효성 검사
